@@ -1,17 +1,17 @@
 import sqlite3
 
 # Connect
-connection = sqlite3.connect("./db/college_database.db")
+connection = sqlite3.connect("db/college_database.db")
 
 # Can't issue commands without creating a cursor
 cursor = connection.cursor()
 
 # SQL query
 table_name = "Students"
-cursor.execute(f"SELECT * FROM {table_name};") 
+cursor.execute(f"SELECT * FROM {table_name};")
 
 # Fetch all rows
-res = cursor.fetchall() 
+res = cursor.fetchall()
 
 print("-"*50)
 print(f"{table_name} table")
