@@ -55,6 +55,11 @@ hr {
     border: 1px dashed var(--compldark);
 }
 
+.text-danger {
+    color: red;
+    font-weight: bold;
+}
+
 .styled-table {
     border-collapse: collapse;
     margin: auto;

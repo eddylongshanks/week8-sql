@@ -1,3 +1,4 @@
+from helpers.providers import FieldNameProvider
 import sqlite3
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
@@ -32,21 +33,16 @@ def index():
 @app.route("/add_user", methods=["GET", "POST"])
 def add_user():
     if request.method == "POST":
-        req = request.form
+        _form = request.form
 
-        missing = list()
+        _error_summary = get_errors(_form)
 
-        for k, v in req.items():
-            if v == "":
-                missing.append(k)
+        if _error_summary:            
+            return render_template("add_user.html", error_summary=_error_summary)
 
-        if missing:
-            feedback = f"Missing fields for {', '.join(missing)}"
-            return render_template("add_user.html", feedback=feedback)
-
-        new_user = Users(firstname=req['first-name'],
-                         secondname=req['second-name'],
-                         country=req['country'])
+        new_user = Users(firstname=_form['firstname'],
+                         secondname=_form['secondname'],
+                         country=_form['country'])
 
         print(new_user)
         db.session.add(new_user)
@@ -56,5 +52,18 @@ def add_user():
 
     return render_template("add_user.html")
 
+
+def get_errors(form_to_validate):
+        invalid_input = list()
+
+        field_name_provider = FieldNameProvider()
+
+        for i, k in form_to_validate.items():
+            if k == "":
+                invalid_input.append(field_name_provider.get_name(i))
+        
+        if invalid_input:
+            error_summary = f"Following information is required: {', '.join(invalid_input)}"
+            return error_summary
 
 app.run(debug=True)

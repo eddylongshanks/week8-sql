@@ -5,37 +5,36 @@
 {% block main %}
 
 <div class="container">
-    <div class="row">
-      <div class="col">
-        <h1>Add New User</h1>
-        <hr>
-        <form action="/add_user" method="POST">
-  
-          <div class="form-group">
-            <label>First Name</label>
-            <!-- To access form data in Flask, you must provide the name attribute in each of the forms input tags -->
-            <input type="text" class="form-control" id="first-name" name="first-name">
-          </div>
-        
-          <div class="form-group">
-            <label>Second Name</label>
-            <input type="text" class="form-control" id="second-name" name="second-name">
-          </div>
-        
-          <div class="form-group">
-            <label>Country</label>
-            <input type="text" class="form-control" id="country" name="country">
-          </div>
-  
-          <button type="submit" class="btn btn-primary">Add</button>
-  
-          {% if feedback %}
-          <p class="text-danger float-right">{{ feedback }}</p>
-          {% endif %}
-        
-        </form>  
-      </div>
+  <div class="row">
+    <div class="col">
+      <h1>Add New User</h1>
+      <hr>
+
+      {% if error_summary %}
+      <p class="text-danger float-right">{{ error_summary }}</p>
+      {% endif %}
+
+      <form action="/add_user" method="POST">
+        <div class="form-group">
+          <label>First Name</label>
+          <!-- To access form data in Flask, you must provide the name attribute in each of the forms input tags -->
+          <input type="text" class="form-control" id="first-name" name="first-name">
+        </div> 
+
+        <div class="form-group">
+          <label>Second Name</label>
+          <input type="text" class="form-control" id="second-name" name="second-name">
+        </div>   
+
+        <div class="form-group">
+          <label>Country</label>
+          <input type="text" class="form-control" id="country" name="country">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>  
     </div>
   </div>
+</div>
 
 {% endblock %}
