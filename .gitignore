@@ -7,6 +7,7 @@ __pycache__/
 # Distribution / packaging
 pyvenv.cfg
 .Python
+.vscode
 build/
 develop-eggs/
 dist/
